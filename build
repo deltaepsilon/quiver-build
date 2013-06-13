@@ -1,0 +1,60 @@
+#!/bin/bash
+
+cd $QUIVER_DEVELOPMENT_ROOT
+echo "Working in $QUIVER_DEVELOPMENT_ROOT..."
+if [ ! -d $QUIVER_DEVELOPMENT_ROOT/quake ]; then
+  echo "Cloning quake to $QUIVER_DEVELOPMENT_ROOT/quake"
+  git clone git@github.com:deltaepsilon/quake.git
+fi
+
+if [ ! -d $QUIVER_DEVELOPMENT_ROOT/quake-sdk ]; then
+  echo "Cloning quake-sdk $QUIVER_DEVELOPMENT_ROOT/quake-sdk"
+  git clone git@github.com:deltaepsilon/quake-sdk.git
+fi
+
+if [ ! -d $QUIVER_DEVELOPMENT_ROOT/quiver ]; then
+  echo "Cloning quiver $QUIVER_DEVELOPMENT_ROOT/quiver"
+  git clone git@github.com:deltaepsilon/quiver.git
+fi
+
+if [ ! -d $QUIVER_DEVELOPMENT_ROOT/quiver-auth ]; then
+  echo "Cloning quiver-auth $QUIVER_DEVELOPMENT_ROOT/quiver-auth"
+  git clone git@github.com:deltaepsilon/quiver-auth.git
+fi
+
+
+echo "Cleaning out Quiver node_modules"
+rm -rf $QUIVER_DEVELOPMENT_ROOT/quiver/node_modules
+mkdir $QUIVER_DEVELOPMENT_ROOT/quiver/node_modules
+ln -s $QUIVER_DEVELOPMENT_ROOT/quiver-auth $QUIVER_DEVELOPMENT_ROOT/quiver/node_modules/quiver-auth
+ln -s $QUIVER_DEVELOPMENT_ROOT/quake-sdk $QUIVER_DEVELOPMENT_ROOT/quiver/node_modules/quake-sdk
+echo "Clean."
+
+echo "Cleaning out Quake node_modules..."
+rm -rf $QUIVER_DEVELOPMENT_ROOT/quake/node_modules
+mkdir $QUIVER_DEVELOPMENT_ROOT/quake/node_modules
+ln -s $QUIVER_DEVELOPMENT_ROOT/quake-sdk $QUIVER_DEVELOPMENT_ROOT/quake/node_modules/quake-sdk
+echo "Clean."
+
+echo "NPM Install..."
+echo "Installing quiver"
+cd $QUIVER_DEVELOPMENT_ROOT/quiver
+npm install
+grunt dist
+
+echo "Installing quake"
+cd $QUIVER_DEVELOPMENT_ROOT/quake
+npm install
+
+echo "Installing quiver-auth"
+cd $QUIVER_DEVELOPMENT_ROOT/quiver-auth
+npm install
+
+echo "Installing quake-sdk"
+cd $QUIVER_DEVELOPMENT_ROOT/quake-sdk
+npm install
+
+cd $QUIVER_DEVELOPMENT_ROOT
+
+sh start
+sh ssl

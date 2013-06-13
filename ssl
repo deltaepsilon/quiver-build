@@ -1,0 +1,27 @@
+#!/bin/bash
+echo "Creating Quake SSL files"
+cd $QUIVER_DEVELOPMENT_ROOT/quake
+
+if [ ! -d $QUIVER_DEVELOPMENT_ROOT/quake/ssl ]; then
+  echo "Creating SSL folder"
+  mkdir ssl
+fi
+
+if [ ! -f $QUIVER_DEVELOPMENT_ROOT/quake/ssl/key.pem ]; then
+  cd $QUIVER_DEVELOPMENT_ROOT/quake/ssl
+  
+  echo "Creating SSL files in..."
+  pwd
+
+  echo "Creating key.pem"
+  openssl genrsa -out key.pem
+  
+  echo "creating csr.pem"
+  openssl req -new -key key.pem -out csr.pem
+   
+  echo "creating cert.pem"
+  openssl x509 -req -days 9999 -in csr.pem -signkey key.pem -out cert.pem
+  
+  echo "Removing csr.pem"
+  rm csr.pem
+fi
