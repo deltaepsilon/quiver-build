@@ -3,12 +3,12 @@ sudo forever stopall
 
 echo "Using forever to start up Quake"
 cd $QUIVER_DEVELOPMENT_ROOT/quake/
-sudo forever start -l /var/log/forever/quake.log --append  --watch $QUIVER_DEVELOPMENT_ROOT/quake/app.js
+sudo forever start -l /var/log/forever/quake.log --minUptime 5000 --spinSleepTime 5000 --append  --watch app.js
 
 echo "Using forever to start up Quiver"
-$QUIVER_DEVELOPMENT_ROOT/quiver/
-sudo forever start -l /var/log/forever/quiver.log --append  --watch $QUIVER_DEVELOPMENT_ROOT/quiver/server.js
+cd $QUIVER_DEVELOPMENT_ROOT/quiver/
+sudo forever start -l /var/log/forever/quiver.log --minUptime 5000 --spinSleepTime 5000  --append  --watch server.js
 
 echo "Firing up the proxy"
-$QUIVER_DEVELOPMENT_ROOT/quiver-builder/
-sudo forever start -l /var/log/forever/proxy.log --append --watch $QUIVER_DEVELOPMENT_ROOT/quiver-build/proxy.js
+cd $QUIVER_DEVELOPMENT_ROOT/quiver-build/
+sudo forever start -l /var/log/forever/proxy.log --minUptime 5000 --spinSleepTime 5000 --append --watch proxy.js
