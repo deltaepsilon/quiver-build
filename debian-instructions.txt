@@ -48,8 +48,6 @@ git config --global color.branch auto
 
 source ~/.bashrc
 
-mkdir ~/Development
-
 Debian Wheezy Node Install *************** https://sekati.com/etc/install-nodejs-on-debian-squeeze
 	mkdir src
 	cd src
@@ -81,6 +79,9 @@ Install MongoDB
 	sudo chown -R admin:admin /data
 	mongo #Make sure you get a mongo cli prompt. Try typing > show dbs;
 
+Set up MongoDB auth
+
+
 Install Redis http://redis.io/topics/quickstart
 	cd ~/src
 	wget http://download.redis.io/redis-stable.tar.gz
@@ -107,11 +108,18 @@ Install Redis http://redis.io/topics/quickstart
 	sudo /etc/init.d/redis_6379 start
 	redis-cli ping #Should answer PONG
 
-Test that Mongo and Redis are up after a reboot
+#Test that Mongo and Redis are up after a reboot
 	sudo reboot
 	#Wait for reboot. SSH back in.
 	redis-cli ping #Should PONG
 	mongo #Should produce mongo prompt
 
-NPM Install all relevant globals
+#NPM Install all relevant globals
 	npm install -g forever grunt-cli
+
+#Install code
+	 mkdir ~/Development
+	 cd ~/Development
+	 git clone git@github.com:deltaepsilon/quiver-build.git
+	 cd quiver-build
+	 sh build # Troubleshoot port openings for proxy.js: netstat -tnlp
