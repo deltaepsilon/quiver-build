@@ -1,4 +1,4 @@
-sudo apt-get install vim curl node git git-core
+sudo apt-get install vim curl node git git-core psmisc
 
 cat to .bashrc >>
 	#	Custom Environment
@@ -123,3 +123,10 @@ Install Redis http://redis.io/topics/quickstart
 	 git clone git@github.com:deltaepsilon/quiver-build.git
 	 cd quiver-build
 	 sh build # Troubleshoot port openings for proxy.js: netstat -tnlp
+
+ #Set up GitHub commit hooks
+ 	cd ~/Development
+ 	git clone https://github.com/A21z/node-cd.git
+
+#Verify Google+ API settings
+	http://code.google.com/apis/console
