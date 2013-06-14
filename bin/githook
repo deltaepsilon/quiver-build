@@ -1,0 +1,3 @@
+cd $QUIVER_DEVELOPMENT_ROOT/quiver-build
+echo "Starting up the githook listener"
+sudo -E forever start -l /var/log/forever/githook.log --minUptime 5000 --spinSleepTime 5000 --append githook.js

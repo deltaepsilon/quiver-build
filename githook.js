@@ -5,7 +5,8 @@ var conf = require('./config/convict.js'),
 
 app.post('/:secret', function (req, res) {
 	if (req.params.secret === conf.get('github_secret')) {
-		spawn('sh', ['-c', 'echo "$QUIVER_DEVELOPMENT_ROOT/quiver-build/bin/build"'], { stdio: 'inherit' });
+		console.log('Catching githook and executing shell commands');
+		spawn('sh', ['-c', '$QUIVER_DEVELOPMENT_ROOT/quiver-build/bin/build'], { stdio: 'inherit' });
 		res.send(200);
 
 	} else {

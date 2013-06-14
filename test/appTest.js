@@ -1,5 +1,5 @@
 var conf = require('./../config/convict.js'),
-	app = require('./../app.js'),
+	app = require('./../githook.js'),
 	request = require('supertest'),
 	chai = require('chai'),
 	assert = chai.Assert;

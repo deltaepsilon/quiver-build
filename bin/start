@@ -1,6 +1,7 @@
 echo "Stopping Forever processes..."
-sudo forever stopall
-sudo killall node
+sudo -E forever stop lib/proxy.js
+sudo -E forever stop server.js
+sudo -E forever stop app.js
 
 echo "Using forever to start up Quake"
 cd $QUIVER_DEVELOPMENT_ROOT/quake/
@@ -12,4 +13,4 @@ sudo -E forever start -l /var/log/forever/quiver.log --minUptime 5000 --spinSlee
 
 echo "Firing up the proxy"
 cd $QUIVER_DEVELOPMENT_ROOT/quiver-build/
-sudo -E forever start -l /var/log/forever/proxy.log --minUptime 5000 --spinSleepTime 5000 --append proxy.js
+sudo -E forever start -l /var/log/forever/proxy.log --minUptime 5000 --spinSleepTime 5000 --append lib/proxy.js
