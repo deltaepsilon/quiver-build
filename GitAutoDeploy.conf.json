@@ -1,0 +1,24 @@
+{
+	"port": 9200, 
+	"repositories": 
+	[{
+		"url": "https://github.com/deltaepsilon/quake.git", 
+		"path": "/home/admin/quiver-build",
+		"deploy": "sh build"
+	}, 
+	{
+		"url": "https://github.com/deltaepsilon/quake-sdk.git", 
+		"path": "/home/admin/quiver-build",
+		"deploy": "sh build"
+	},
+	{
+		"url": "https://github.com/deltaepsilon/quiver.git", 
+		"path": "/home/admin/quiver-build",
+		"deploy": "sh build"
+	},
+	{
+		"url": "https://github.com/deltaepsilon/quiver-auth.git", 
+		"path": "/home/admin/quiver-build",
+		"deploy": "sh build"
+	},]
+}
