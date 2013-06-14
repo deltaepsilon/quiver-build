@@ -7,5 +7,7 @@ var conf = require('./convict.js'),
      "bootstrap.quiver.is": "127.0.0.1:9100"
     }
   },
-server = httpProxy.createServer(options);
+  server;
 
+server = httpProxy.createServer(options);
+server.listen(80);

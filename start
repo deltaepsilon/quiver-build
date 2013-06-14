@@ -10,5 +10,5 @@ cd $QUIVER_DEVELOPMENT_ROOT/quiver/
 sudo forever start -l /var/log/forever/quiver.log --minUptime 5000 --spinSleepTime 5000  --append  --watch server.js
 
 echo "Firing up the proxy"
-$QUIVER_DEVELOPMENT_ROOT/quiver-builder/
+cd $QUIVER_DEVELOPMENT_ROOT/quiver-build/
 sudo forever start -l /var/log/forever/proxy.log --minUptime 5000 --spinSleepTime 5000 --append --watch proxy.js
