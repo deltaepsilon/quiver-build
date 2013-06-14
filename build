@@ -24,14 +24,14 @@ fi
 
 
 echo "Cleaning out Quiver node_modules"
-rm -rf $QUIVER_DEVELOPMENT_ROOT/quiver/node_modules
+#rm -rf $QUIVER_DEVELOPMENT_ROOT/quiver/node_modules
 mkdir $QUIVER_DEVELOPMENT_ROOT/quiver/node_modules
 ln -s $QUIVER_DEVELOPMENT_ROOT/quiver-auth $QUIVER_DEVELOPMENT_ROOT/quiver/node_modules/quiver-auth
 ln -s $QUIVER_DEVELOPMENT_ROOT/quake-sdk $QUIVER_DEVELOPMENT_ROOT/quiver/node_modules/quake-sdk
 echo "Clean."
 
 echo "Cleaning out Quake node_modules..."
-rm -rf $QUIVER_DEVELOPMENT_ROOT/quake/node_modules
+#rm -rf $QUIVER_DEVELOPMENT_ROOT/quake/node_modules
 mkdir $QUIVER_DEVELOPMENT_ROOT/quake/node_modules
 ln -s $QUIVER_DEVELOPMENT_ROOT/quake-sdk $QUIVER_DEVELOPMENT_ROOT/quake/node_modules/quake-sdk
 echo "Clean."
@@ -54,7 +54,7 @@ echo "Installing quake-sdk"
 cd $QUIVER_DEVELOPMENT_ROOT/quake-sdk
 npm install
 
-cd $QUIVER_DEVELOPMENT_ROOT
+cd $QUIVER_DEVELOPMENT_ROOT/quiver-build
 
-sh start
 sh ssl
+sh start
