@@ -56,5 +56,5 @@ npm install
 
 cd $QUIVER_DEVELOPMENT_ROOT/quiver-build
 
-sh ssl
-sh start
+sh bin/ssl
+sh bin/start

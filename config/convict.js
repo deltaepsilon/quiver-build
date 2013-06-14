@@ -29,6 +29,12 @@ conf = convict({
       format: "port",
       default: 9001,
       env: "QUAKE_PORT"
+  },
+  github_secret: {
+      doc: "Github secret",
+      format: "*",
+      default: "You should change this",
+      env: "GITHUB_SECRET"
   }
 
 });
