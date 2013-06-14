@@ -1,9 +1,9 @@
-##Install is Debian Wheezy-specific, but it shouldn't be tough to modify.
+#Install is Debian Wheezy-specific, but it shouldn't be tough to modify.
 
-#Install dependencies
+##Install dependencies
 sudo apt-get install vim curl node git git-core psmisc
 
-#Set up bash environment
+##Set up bash environment
 	cat to .bashrc >>
 		#	Custom Environment
 		if [ -f ~/.node_env ]; then
@@ -52,7 +52,7 @@ sudo apt-get install vim curl node git git-core psmisc
 
 	source ~/.bashrc
 
-#Debian Wheezy Node Install *************** https://sekati.com/etc/install-nodejs-on-debian-squeeze
+##Debian Wheezy Node Install https://sekati.com/etc/install-nodejs-on-debian-squeeze
 	mkdir src
 	cd src
 	git clone https://github.com/joyent/node.git
@@ -73,7 +73,7 @@ sudo apt-get install vim curl node git git-core psmisc
 	npm -v # it's alive!
 	
 
-#Install MongoDB
+##Install MongoDB
 	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
 	echo 'deb http://downloads-distro.mongodb.org/repo/debian-sysvinit dist 10gen' | sudo tee /etc/apt/sources.list.d/10gen.list
 	sudo apt-get update
@@ -84,7 +84,7 @@ sudo apt-get install vim curl node git git-core psmisc
 	mongo #Make sure you get a mongo cli prompt. Try typing > show dbs;
 
 
-#Install Redis http://redis.io/topics/quickstart
+##Install Redis http://redis.io/topics/quickstart
 	cd ~/src
 	wget http://download.redis.io/redis-stable.tar.gz
 	tar xvzf redis-stable.tar.gz
@@ -110,16 +110,16 @@ sudo apt-get install vim curl node git git-core psmisc
 	sudo /etc/init.d/redis_6379 start
 	redis-cli ping #Should answer PONG
 
-#Test that Mongo and Redis are up after a reboot
+##Test that Mongo and Redis are up after a reboot
 	sudo reboot
 	#Wait for reboot. SSH back in.
 	redis-cli ping #Should PONG
 	mongo #Should produce mongo prompt
 
-#NPM Install all relevant globals
+##NPM Install all relevant globals
 	npm install -g forever grunt-cli
 
-#Install code
+##Install code
 	 mkdir ~/Development
 	 cd ~/Development
 	 git clone git@github.com:deltaepsilon/quiver-build.git
@@ -128,10 +128,10 @@ sudo apt-get install vim curl node git git-core psmisc
 	 sh bin/githook #Start githook listener
 	 sh bin/build # Troubleshoot port openings for proxy.js: netstat -tnlp
 
-#Verify Google+ API settings
+##Verify Google+ API settings
 	http://code.google.com/apis/console
 
-#Notes
+##Notes
 	quiver-build has a number of convenience scripts that can be helpful.
 	bin/start - Starts up the main servers
 	bin/githook - Starts up the githook server
