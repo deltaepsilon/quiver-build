@@ -122,7 +122,9 @@ Install Redis http://redis.io/topics/quickstart
 	 cd ~/Development
 	 git clone git@github.com:deltaepsilon/quiver-build.git
 	 cd quiver-build
-	 sh build # Troubleshoot port openings for proxy.js: netstat -tnlp
+	 npm install
+	 sh bin/githook #Start githook listener
+	 sh bin/build # Troubleshoot port openings for proxy.js: netstat -tnlp
 
  #Set up GitHub commit hooks
  	cd ~/Development
