@@ -1,7 +1,8 @@
 #Install is Debian Wheezy-specific, but it shouldn't be tough to modify.
 
 ##Install dependencies
-sudo apt-get install vim curl node git git-core psmisc
+sudo apt-get install vim curl node git git-core psmisc 
+sudo apt-get install -y python-software-properties python g++ make
 
 ##Set up bash environment
 	cat to .bashrc >>
