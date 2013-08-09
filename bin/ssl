@@ -1,14 +1,14 @@
 #!/bin/bash
 echo "Creating Quake SSL files"
-cd $QUIVER_DEVELOPMENT_ROOT/quake
+cd $QUIVER_DEVELOPMENT_ROOT/quake-build
 
-if [ ! -d $QUIVER_DEVELOPMENT_ROOT/quake/ssl ]; then
+if [ ! -d $QUIVER_DEVELOPMENT_ROOT/quake-build/ssl ]; then
   echo "Creating SSL folder"
   mkdir ssl
 fi
 
-if [ ! -f $QUIVER_DEVELOPMENT_ROOT/quake/ssl/key.pem ]; then
-  cd $QUIVER_DEVELOPMENT_ROOT/quake/ssl
+if [ ! -f $QUIVER_DEVELOPMENT_ROOT/quake-build/ssl/key.pem ]; then
+  cd $QUIVER_DEVELOPMENT_ROOT/quake-build/ssl
   
   echo "Creating SSL files in..."
   pwd
