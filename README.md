@@ -1,12 +1,25 @@
 #Install is Debian Wheezy-specific, but it shouldn't be tough to modify.
 
 ##Install dependencies
-sudo apt-get install vim curl node git git-core psmisc 
+sudo apt-get update
+sudo apt-get install vim curl node git git-core psmisc ruby python-setuptools
 sudo apt-get install -y python-software-properties python g++ make
+gem update --system && gem install compass
+sudo easy_install awscli
+
+##IP Tables if necessary
+	sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+	sudo iptables -A INPUT -p tcp --dport ssh -j ACCEPT
+	sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+	sudo iptables -A INPUT -p tcp --dport 443 -j ACCEPT
 
 ##Set up bash environment
 	cat to .bashrc >>
 		#	Custom Environment
+		if [ -f ~/.bash_aliases ]; then
+		  source ~/.bash_aliases
+		fi
+
 		if [ -f ~/.node_env ]; then
 		  source ~/.node_env
 		fi
@@ -31,7 +44,9 @@ sudo apt-get install -y python-software-properties python g++ make
 		alias quake='cd ~/Development/quake'
 		alias sdk='cd ~/Development/quake-sdk'
 		alias auth='cd ~/Development/quiver-auth'
-		alias builder='cd ~/Development/quiver-builder'
+		alias builder='cd ~/Development/quiver-build'
+		alias apache='sudo /etc/init.d/apache2'
+		alias mysql.server='sudo /etc/init.d/mysql'
 
 
 	mkdir scripts
@@ -94,12 +109,12 @@ sudo apt-get install -y python-software-properties python g++ make
 	sudo cp src/redis-server /usr/local/bin/
 	sudo cp src/redis-cli /usr/local/bin/
 
-	sudo mkdir /etc/redis
-	sudo mkdir /var/redis
-	sudo cp utils/redis_init_script /etc/init.d/redis_6379
-	sudo cp redis.conf /etc/redis/6379.conf
-	sudo mkdir /var/redis/6379
-	sudo vim /etc/redis/6379.conf
+		sudo mkdir /etc/redis
+		sudo mkdir /var/redis
+		sudo cp utils/redis_init_script /etc/init.d/redis_6379
+		sudo cp redis.conf /etc/redis/6379.conf
+		sudo mkdir /var/redis/6379
+		sudo vim /etc/redis/6379.conf
 	#EDITS!!!
 		Set daemonize to yes (by default it is set to no).
 		Set the pidfile to /var/run/redis_6379.pid (modify the port if needed).
@@ -118,19 +133,26 @@ sudo apt-get install -y python-software-properties python g++ make
 	mongo #Should produce mongo prompt
 
 ##NPM Install all relevant globals
-	npm install -g forever grunt-cli
+	sudo npm install -g forever grunt-cli pm2 bower
 
 ##Install code
-	 mkdir ~/Development
-	 cd ~/Development
-	 git clone git@github.com:deltaepsilon/quiver-build.git
-	 cd quiver-build
-	 npm install
-	 sh bin/githook #Start githook listener
-	 sh bin/build # Troubleshoot port openings for proxy.js: netstat -tnlp
+	vim ~/.node_env
+	#Populate this .node_env. 
+	#Make sure to add something like... export QUIVER_DEVELOPMENT_ROOT="/home/admin/Development"
+	
+	mkdir ~/Development
+	cd ~/Development
+	git clone git@github.com:deltaepsilon/quiver-build.git
+	cd quiver-build
+	npm install
+	sh bin/githook #Start githook listener
+	sh bin/build # Troubleshoot port openings for proxy.js: netstat -tnlp
+	cd ~/Development/quiver
+	bower install
 
 ##Verify Google+ API settings
 	http://code.google.com/apis/console
+	Update .node_env
 
 ##Notes
 	quiver-build has a number of convenience scripts that can be helpful.
@@ -138,3 +160,34 @@ sudo apt-get install -y python-software-properties python g++ make
 	bin/githook - Starts up the githook server
 	bin/stop - Stops all forever processes, including the servers and the githook listener
 	bin/build - Clones or pulls all of the repos and starts up the servers. Does not start githook server, because the githook server needs to call this shell script for restarts, and it would end up restarting itself, which doesn't work so well.
+
+## Copy up SSL files
+	#Assuming that "ssh admin" will log you into the server... copy up the CSR, KEY and CRT files
+	#~/.ssh/config should have an entry like...
+	#	host admin
+    #    	HostName 123.456.789.000
+    #    	User admin
+    #   	IdentityFile ~/.ssh/id_rsa
+
+	scp STAR_quiver_is.crt admin:~/Development/quiver-build/ssl/STAR_quiver_is.crt
+	scp myserver.key admin:~/Development/quiver-build/ssl/myserver.key
+	scp server.csr admin:~/Development/quiver-build/ssl/server.csr
+
+
+#Install LAMP
+
+##Install Dependencies
+	sudo apt-get install apache2 mysql-server php5 php-pear php5-mysql php-apc php-ssh2 php5-curl php5-intl zip unzip
+
+##Configure MySQL
+	mysql -u root
+	CREATE USER 'chris'@'localhost' IDENTIFIED BY 'mypass';
+	GRANT ALL ON *.* TO 'chris'@'localhost';
+	exit;
+	mysql -u chris -p
+	create database calligraphy;
+	create database chris_wordpress;
+	create database isly_wordpress;
+
+##Install NewRelic
+	https://rpm.newrelic.com/accounts/330371/servers/get_started#platform=debian
