@@ -177,7 +177,7 @@ sudo easy_install awscli
 #Install LAMP
 
 ##Install Dependencies
-	sudo apt-get install apache2 mysql-server php5 php-pear php5-mysql php-apc php-ssh2 php5-curl php5-intl zip unzip
+	sudo apt-get install apache2 mysql-server php5 php-pear php5-mysql php-apc php-ssh2 php5-curl php5-intl zip unzip postfix
 
 ##Configure MySQL
 	mysql -u root
