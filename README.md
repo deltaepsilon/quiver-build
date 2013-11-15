@@ -2,7 +2,7 @@
 
 ##Install dependencies
 sudo apt-get update
-sudo apt-get install vim curl node git git-core psmisc ruby python-setuptools
+sudo apt-get install vim curl node git git-core psmisc ruby python-setuptools libfreetype6 libfontconfig1
 sudo apt-get install -y python-software-properties python g++ make
 gem update --system && gem install compass
 sudo easy_install awscli
@@ -133,7 +133,7 @@ sudo easy_install awscli
 	mongo #Should produce mongo prompt
 
 ##NPM Install all relevant globals
-	sudo npm install -g forever grunt-cli pm2 bower
+	sudo npm install -g forever grunt-cli pm2 bower phantomjs
 
 ##Install code
 	vim ~/.node_env
@@ -178,6 +178,67 @@ sudo easy_install awscli
 
 ##Install Dependencies
 	sudo apt-get install apache2 mysql-server php5 php-pear php5-mysql php-apc php-ssh2 php5-curl php5-intl zip unzip postfix
+
+##Add mod_deflate
+	sudo a2enmod deflate
+	copy to end of apache2.conf:
+	```
+	# mod_deflate configuration
+	<IfModule mod_deflate.c>
+	 
+	# Restrict compression to these MIME types
+	AddOutputFilterByType DEFLATE text/plain
+	AddOutputFilterByType DEFLATE text/html
+	AddOutputFilterByType DEFLATE application/xhtml+xml
+	AddOutputFilterByType DEFLATE text/xml
+	AddOutputFilterByType DEFLATE application/xml
+	AddOutputFilterByType DEFLATE application/x-javascript
+	AddOutputFilterByType DEFLATE text/javascript
+	AddOutputFilterByType DEFLATE text/css
+	 
+	# Level of compression (Highest 9 - Lowest 1)
+	DeflateCompressionLevel 9
+	 
+	# Netscape 4.x has some problems.
+	BrowserMatch ^Mozilla/4 gzip-only-text/html
+	 
+	# Netscape 4.06-4.08 have some more problems
+	BrowserMatch ^Mozilla/4\.0[678] no-gzip
+	 
+	# MSIE masquerades as Netscape, but it is fine
+	BrowserMatch \bMSI[E] !no-gzip !gzip-only-text/html
+	 
+	<IfModule mod_headers.c>
+	# Make sure proxies don't deliver the wrong content
+	Header append Vary User-Agent env=!dont-vary
+	</IfModule>
+	 
+	</IfModule>
+
+	FileETag none
+	```
+
+##Add mod_expires
+	sudo a2enmod expires
+	Copy to vhost or apache2.conf
+	```
+	#Expires
+	AddType application/x-font-woff .woff
+	AddType application/javascript .js
+	AddType image/x-icon .ico
+	
+	ExpiresActive on
+	ExpiresDefault "Access plus 1 year"
+	ExpiresByType text/html "access plus 1 day"
+	ExpiresByType application/json "access plus 1 seconds"
+	ExpiresByType text/css "access plus 1 year"
+	ExpiresByType image/png "access plus 1 year"
+	ExpiresByType application/x-font-woff "access plus 1 year"
+	ExpiresByType application/javascript "access plus 1 year"
+	ExpiresByType text/javascript "access plus 1 year"
+	ExpiresByType image/x-icon "access plus 1 year"
+
+	```
 
 ##Configure MySQL
 	mysql -u root
