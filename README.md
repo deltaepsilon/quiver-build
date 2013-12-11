@@ -1,11 +1,11 @@
 #Install is Debian Wheezy-specific, but it shouldn't be tough to modify.
 
 ##Install dependencies
-sudo apt-get update
-sudo apt-get install vim curl node git git-core psmisc ruby python-setuptools libfreetype6 libfontconfig1
-sudo apt-get install -y python-software-properties python g++ make
-gem update --system && gem install compass
-sudo easy_install awscli
+  sudo apt-get update
+  sudo apt-get install vim curl node git git-core psmisc ruby python-setuptools libfreetype6 libfontconfig1
+  sudo apt-get install -y python-software-properties python g++ make
+  gem update --system && gem install compass
+  sudo easy_install awscli
 
 ##IP Tables if necessary
 	sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
