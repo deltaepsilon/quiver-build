@@ -6,7 +6,8 @@
   "dependencies": {
     "http-proxy": "~0.10.2",
     "convict": "~0.3.2",
-    "express": "~3.2.6"
+    "express": "~3.2.6",
+    "newrelic": "~1.2.0"
   },
   "devDependencies": {
     "grunt-contrib-watch": "~0.4.4",
